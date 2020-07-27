@@ -195,7 +195,7 @@
 
 	<distributionManagement>
 		<repository>
-			<id>github</id>
+			<id>metersphere</id>
 			<name>Nexus Release Repository</name>
 			<url>https://maven.pkg.github.com/metersphere/jmeter-plugins-for-apache-dubbo</url>
 		</repository>
