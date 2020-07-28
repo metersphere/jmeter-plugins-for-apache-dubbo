@@ -28,8 +28,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * DubboDefaultConfigGui </br>
- * invoke sequence**clearGui()->createTestElement()->modifyTestElement()->configure()**
+ * DubboDefaultConfigGui
  */
 public class DubboDefaultConfigGui extends AbstractConfigGui {
 
@@ -54,7 +53,7 @@ public class DubboDefaultConfigGui extends AbstractConfigGui {
         //全局布局设置
         setLayout(new BorderLayout(0, 5));
         setBorder(makeBorder());
-        add(settingPanel,BorderLayout.CENTER);
+        add(settingPanel, BorderLayout.CENTER);
     }
 
     @Override

@@ -33,24 +33,24 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 /**
- * DubboCommonPanel </br>
+ * DubboCommonPanel
  */
 public class DubboCommonPanel {
-    /** Registry */
+    /**
+     * Registry
+     */
     private JComboBox<String> registryProtocolText;
     private JTextField addressText;
     private JTextField registryGroupText;
     private JTextField registryUserNameText;
     private JTextField registryPasswordText;
     private JTextField registryTimeoutText;
-    /** ConfigCenter */
+    /**
+     * ConfigCenter
+     */
     private JComboBox configCenterProtocolText;
     private JTextField configCenterGroupText;
     private JTextField configCenterNamespaceText;
@@ -58,9 +58,13 @@ public class DubboCommonPanel {
     private JTextField configCenterPasswordText;
     private JTextField configCenterAddressText;
     private JTextField configCenterTimeoutText;
-    /** Rpc Protocol */
+    /**
+     * Rpc Protocol
+     */
     private JComboBox<String> rpcProtocolText;
-    /** Consumer & Service */
+    /**
+     * Consumer & Service
+     */
     private JTextField timeoutText;
     private JTextField versionText;
     private JTextField retriesText;
@@ -69,14 +73,20 @@ public class DubboCommonPanel {
     private JTextField connectionsText;
     private JComboBox<String> loadbalanceText;
     private JComboBox<String> asyncText;
-    /** Interface */
+    /**
+     * Interface
+     */
     private JTextField interfaceText;
     private JTextField methodText;
-    /** Method Args Table */
+    /**
+     * Method Args Table
+     */
     private DefaultTableModel model;
     private String[] columnNames = {"paramType", "paramValue"};
     private String[] tmpRow = {"", ""};
-    /** Attachment Table */
+    /**
+     * Attachment Table
+     */
     private DefaultTableModel modelAttachment;
     private String[] columnNamesAttachment = {"key", "value"};
     private int textColumns = 2;
@@ -95,7 +105,7 @@ public class DubboCommonPanel {
         //Protocol
         JPanel ph = new HorizontalPanel();
         JLabel protocolLable = new JLabel("Protocol:", SwingConstants.RIGHT);
-        registryProtocolText = new JComboBox<String>(new String[]{"","none", "zookeeper", "nacos", "multicast", "redis", "simple"});
+        registryProtocolText = new JComboBox<String>(new String[]{"", "none", "zookeeper", "nacos", "multicast", "redis", "simple"});
         registryProtocolText.setToolTipText("\"none\" is direct connection");
         protocolLable.setLabelFor(registryProtocolText);
         ph.add(protocolLable);
@@ -149,7 +159,7 @@ public class DubboCommonPanel {
         //Protocol
         JPanel ph = new HorizontalPanel();
         JLabel protocolLable = new JLabel("Protocol:", SwingConstants.RIGHT);
-        configCenterProtocolText = new JComboBox<String>(new String[]{"","zookeeper", "nacos", "apollo"});
+        configCenterProtocolText = new JComboBox<String>(new String[]{"", "zookeeper", "nacos", "apollo"});
         protocolLable.setLabelFor(configCenterProtocolText);
         ph.add(protocolLable);
         ph.add(configCenterProtocolText);
@@ -386,7 +396,7 @@ public class DubboCommonPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 int rowIndex = table.getSelectedRow();
-                if(rowIndex != -1) {
+                if (rowIndex != -1) {
                     model.removeRow(rowIndex);
                 }
             }
@@ -396,7 +406,7 @@ public class DubboCommonPanel {
         tablePanel.add(scrollpane);
         tablePanel.add(addBtn);
         tablePanel.add(delBtn);
-        tabbedPane.add("Args",tablePanel);
+        tabbedPane.add("Args", tablePanel);
 
         //隐式参数表格
         JPanel tablePanelAttachment = new HorizontalPanel();
@@ -419,7 +429,7 @@ public class DubboCommonPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 int rowIndex = tableAttachment.getSelectedRow();
-                if(rowIndex != -1) {
+                if (rowIndex != -1) {
                     modelAttachment.removeRow(rowIndex);
                 }
             }
@@ -429,7 +439,7 @@ public class DubboCommonPanel {
         tablePanelAttachment.add(scrollpaneAttachment);
         tablePanelAttachment.add(addBtnAttachment);
         tablePanelAttachment.add(delBtnAttachment);
-        tabbedPane.add("Attachment Args",tablePanelAttachment);
+        tabbedPane.add("Attachment Args", tablePanelAttachment);
 
         interfaceSettings.add(tabbedPane);
         return interfaceSettings;
@@ -490,6 +500,7 @@ public class DubboCommonPanel {
         Constants.setAddress(addressText.getText(), element);
         Constants.setRegistryTimeout(registryTimeoutText.getText(), element);
     }
+
     public void modifyConfigCenter(TestElement element) {
         Constants.setConfigCenterProtocol(configCenterProtocolText.getSelectedItem().toString(), element);
         Constants.setConfigCenterGroup(configCenterGroupText.getText(), element);
@@ -499,9 +510,11 @@ public class DubboCommonPanel {
         Constants.setConfigCenterAddress(configCenterAddressText.getText(), element);
         Constants.setConfigCenterTimeout(configCenterTimeoutText.getText(), element);
     }
+
     public void modifyProtocol(TestElement element) {
         Constants.setRpcProtocol(rpcProtocolText.getSelectedItem().toString(), element);
     }
+
     public void modifyConsumer(TestElement element) {
         Constants.setTimeout(timeoutText.getText(), element);
         Constants.setVersion(versionText.getText(), element);
@@ -512,12 +525,14 @@ public class DubboCommonPanel {
         Constants.setAsync(asyncText.getSelectedItem().toString(), element);
         Constants.setCluster(clusterText.getText(), element);
     }
+
     public void modifyInterface(TestElement element) {
         Constants.setInterfaceName(interfaceText.getText(), element);
         Constants.setMethod(methodText.getText(), element);
         Constants.setMethodArgs(getMethodArgsData(model.getDataVector()), element);
         Constants.setAttachmentArgs(getMethodArgsData(modelAttachment.getDataVector()), element);
     }
+
     public void clearRegistry() {
         registryProtocolText.setSelectedIndex(0);
         registryGroupText.setText("");
@@ -526,6 +541,7 @@ public class DubboCommonPanel {
         addressText.setText("");
         registryTimeoutText.setText("");
     }
+
     public void clearConfigCenter() {
         configCenterProtocolText.setSelectedIndex(0);
         configCenterGroupText.setText("");
@@ -535,9 +551,11 @@ public class DubboCommonPanel {
         configCenterAddressText.setText("");
         configCenterTimeoutText.setText("");
     }
+
     public void clearProtocol() {
         rpcProtocolText.setSelectedIndex(0);
     }
+
     public void clearConsumer() {
         timeoutText.setText(Constants.DEFAULT_TIMEOUT);
         versionText.setText(Constants.DEFAULT_VERSION);
@@ -548,6 +566,7 @@ public class DubboCommonPanel {
         loadbalanceText.setSelectedIndex(0);
         asyncText.setSelectedIndex(0);
     }
+
     public void clearInterface() {
         interfaceText.setText("");
         methodText.setText("");
@@ -560,7 +579,7 @@ public class DubboCommonPanel {
         if (!data.isEmpty()) {
             //处理参数
             Iterator<Vector<String>> it = data.iterator();
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 Vector<String> param = it.next();
                 if (!param.isEmpty()) {
                     params.add(new MethodArgument(param.get(0), param.get(1)));

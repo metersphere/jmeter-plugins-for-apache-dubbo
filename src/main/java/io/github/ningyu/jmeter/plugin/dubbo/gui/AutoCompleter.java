@@ -77,6 +77,9 @@ public class AutoCompleter implements KeyListener {
 
     /**
      * 自动完成。根据输入的内容，在列表中找到相似的项目.
+     *
+     * @param strf str
+     * @param caretPosition position
      */
     protected void autoComplete(String strf, int caretPosition) {
         Object[] opts;
@@ -101,7 +104,7 @@ public class AutoCompleter implements KeyListener {
     /**
      * 找到相似的项目, 并且将之排列到数组的最前面。
      *
-     * @param str
+     * @param str str
      * @return 返回所有项目的列表。
      */
     protected Object[] getMatchingOptions(String str) {

@@ -29,50 +29,50 @@ import java.util.List;
  */
 public class Constants {
 
-	//Registry Protocol
-	public static final String REGISTRY_NONE = "none";
-	public static final String REGISTRY_ZOOKEEPER = "zookeeper";
+    //Registry Protocol
+    public static final String REGISTRY_NONE = "none";
+    public static final String REGISTRY_ZOOKEEPER = "zookeeper";
     public static final String REGISTRY_NACOS = "nacos";
     public static final String APOLLO = "apollo";
-	public static final String REGISTRY_MULTICAST = "multicast";
-	public static final String REGISTRY_REDIS = "redis";
-	public static final String REGISTRY_SIMPLE = "simple";
+    public static final String REGISTRY_MULTICAST = "multicast";
+    public static final String REGISTRY_REDIS = "redis";
+    public static final String REGISTRY_SIMPLE = "simple";
 
-	//RPC Protocol
-	public static final String RPC_PROTOCOL_DUBBO = "dubbo";
-	public static final String RPC_PROTOCOL_RMI = "rmi";
-	public static final String RPC_PROTOCOL_HESSIAN = "hessian";
-	public static final String RPC_PROTOCOL_HTTP = "http";
-	public static final String RPC_PROTOCOL_WEBSERVICE = "webservice";
-	public static final String RPC_PROTOCOL_THRIFT = "thrift";
-	public static final String RPC_PROTOCOL_MEMCACHED = "memcached";
-	public static final String RPC_PROTOCOL_REDIS = "redis";
+    //RPC Protocol
+    public static final String RPC_PROTOCOL_DUBBO = "dubbo";
+    public static final String RPC_PROTOCOL_RMI = "rmi";
+    public static final String RPC_PROTOCOL_HESSIAN = "hessian";
+    public static final String RPC_PROTOCOL_HTTP = "http";
+    public static final String RPC_PROTOCOL_WEBSERVICE = "webservice";
+    public static final String RPC_PROTOCOL_THRIFT = "thrift";
+    public static final String RPC_PROTOCOL_MEMCACHED = "memcached";
+    public static final String RPC_PROTOCOL_REDIS = "redis";
 
-	public static final String ASYNC = "async";
-	public static final String SYMBOL = "://";
+    public static final String ASYNC = "async";
+    public static final String SYMBOL = "://";
 
-	public static final int INT_DEFAULT = 0;
-	public static final double DOUBLE_DEFAULT = 0.0d;
-	public static final boolean BOOLEAN_DEFAULT = false;
-	public static final char CHAR_DEFAULT = '\u0000';
-	public static final float FLOAT_DEFAULT = 0.0f;
-	public static final byte BYTE_DEFAULT = 0;
-	public static final long LONG_DEFAULT = 0l;
-	public static final short SHORT_DEFAULT = 0;
-	public static final int[] INT_ARRAY_DEFAULT = null;
-	public static final double[] DOUBLE_ARRAY_DEFAULT = null;
-	public static final boolean[] BOOLEAN_ARRAY_DEFAULT = null;
-	public static final char[] CHAT_ARRAY_DEFAULT = null;
-	public static final float[] FLOAT_ARRAY_DEFAULT = null;
-	public static final byte[] BYTE_ARRAY_DEFAULT = null;
-	public static final long[] LONG_ARRAY_DEFAULT = null;
-	public static final short[] SHORT_ARRAY_DEFAULT = null;
+    public static final int INT_DEFAULT = 0;
+    public static final double DOUBLE_DEFAULT = 0.0d;
+    public static final boolean BOOLEAN_DEFAULT = false;
+    public static final char CHAR_DEFAULT = '\u0000';
+    public static final float FLOAT_DEFAULT = 0.0f;
+    public static final byte BYTE_DEFAULT = 0;
+    public static final long LONG_DEFAULT = 0l;
+    public static final short SHORT_DEFAULT = 0;
+    public static final int[] INT_ARRAY_DEFAULT = null;
+    public static final double[] DOUBLE_ARRAY_DEFAULT = null;
+    public static final boolean[] BOOLEAN_ARRAY_DEFAULT = null;
+    public static final char[] CHAT_ARRAY_DEFAULT = null;
+    public static final float[] FLOAT_ARRAY_DEFAULT = null;
+    public static final byte[] BYTE_ARRAY_DEFAULT = null;
+    public static final long[] LONG_ARRAY_DEFAULT = null;
+    public static final short[] SHORT_ARRAY_DEFAULT = null;
 
-	public static final String FIELD_DUBBO_REGISTRY_PROTOCOL = "FIELD_DUBBO_REGISTRY_PROTOCOL";
-	public static final String FIELD_DUBBO_REGISTRY_GROUP = "FIELD_DUBBO_REGISTRY_GROUP";
-	public static final String FIELD_DUBBO_REGISTRY_USER_NAME = "FIELD_DUBBO_REGISTRY_USER_NAME";
-	public static final String FIELD_DUBBO_REGISTRY_PASSWORD = "FIELD_DUBBO_REGISTRY_PASSWORD";
-	public static final String FIELD_DUBBO_REGISTRY_TIMEOUT = "FIELD_DUBBO_REGISTRY_TIMEOUT";
+    public static final String FIELD_DUBBO_REGISTRY_PROTOCOL = "FIELD_DUBBO_REGISTRY_PROTOCOL";
+    public static final String FIELD_DUBBO_REGISTRY_GROUP = "FIELD_DUBBO_REGISTRY_GROUP";
+    public static final String FIELD_DUBBO_REGISTRY_USER_NAME = "FIELD_DUBBO_REGISTRY_USER_NAME";
+    public static final String FIELD_DUBBO_REGISTRY_PASSWORD = "FIELD_DUBBO_REGISTRY_PASSWORD";
+    public static final String FIELD_DUBBO_REGISTRY_TIMEOUT = "FIELD_DUBBO_REGISTRY_TIMEOUT";
     public static final String FIELD_DUBBO_CONFIG_CENTER_PROTOCOL = "FIELD_DUBBO_CONFIG_CENTER_PROTOCOL";
     public static final String FIELD_DUBBO_CONFIG_CENTER_GROUP = "FIELD_DUBBO_CONFIG_CENTER_GROUP";
     public static final String FIELD_DUBBO_CONFIG_CENTER_NAMESPACE = "FIELD_DUBBO_CONFIG_CENTER_NAMESPACE";
@@ -80,29 +80,29 @@ public class Constants {
     public static final String FIELD_DUBBO_CONFIG_CENTER_PASSWORD = "FIELD_DUBBO_CONFIG_CENTER_PASSWORD";
     public static final String FIELD_DUBBO_CONFIG_CENTER_TIMEOUT = "FIELD_DUBBO_CONFIG_CENTER_TIMEOUT";
     public static final String FIELD_DUBBO_CONFIG_CENTER_ADDRESS = "FIELD_DUBBO_CONFIG_CENTER_ADDRESS";
-	public static final String FIELD_DUBBO_RPC_PROTOCOL = "FIELD_DUBBO_RPC_PROTOCOL";
-	public static final String FIELD_DUBBO_ADDRESS = "FIELD_DUBBO_ADDRESS";
-	public static final String FIELD_DUBBO_TIMEOUT = "FIELD_DUBBO_TIMEOUT";
-	public static final String FIELD_DUBBO_VERSION = "FIELD_DUBBO_VERSION";
-	public static final String FIELD_DUBBO_RETRIES = "FIELD_DUBBO_RETRIES";
-	public static final String FIELD_DUBBO_CLUSTER = "FIELD_DUBBO_CLUSTER";
-	public static final String FIELD_DUBBO_GROUP = "FIELD_DUBBO_GROUP";
-	public static final String FIELD_DUBBO_CONNECTIONS = "FIELD_DUBBO_CONNECTIONS";
-	public static final String FIELD_DUBBO_LOADBALANCE = "FIELD_DUBBO_LOADBALANCE";
-	public static final String FIELD_DUBBO_ASYNC = "FIELD_DUBBO_ASYNC";
-	public static final String FIELD_DUBBO_INTERFACE = "FIELD_DUBBO_INTERFACE";
-	public static final String FIELD_DUBBO_METHOD = "FIELD_DUBBO_METHOD";
-	public static final String FIELD_DUBBO_METHOD_ARGS = "FIELD_DUBBO_METHOD_ARGS";
-	public static final String FIELD_DUBBO_METHOD_ARGS_SIZE = "FIELD_DUBBO_METHOD_ARGS_SIZE";
+    public static final String FIELD_DUBBO_RPC_PROTOCOL = "FIELD_DUBBO_RPC_PROTOCOL";
+    public static final String FIELD_DUBBO_ADDRESS = "FIELD_DUBBO_ADDRESS";
+    public static final String FIELD_DUBBO_TIMEOUT = "FIELD_DUBBO_TIMEOUT";
+    public static final String FIELD_DUBBO_VERSION = "FIELD_DUBBO_VERSION";
+    public static final String FIELD_DUBBO_RETRIES = "FIELD_DUBBO_RETRIES";
+    public static final String FIELD_DUBBO_CLUSTER = "FIELD_DUBBO_CLUSTER";
+    public static final String FIELD_DUBBO_GROUP = "FIELD_DUBBO_GROUP";
+    public static final String FIELD_DUBBO_CONNECTIONS = "FIELD_DUBBO_CONNECTIONS";
+    public static final String FIELD_DUBBO_LOADBALANCE = "FIELD_DUBBO_LOADBALANCE";
+    public static final String FIELD_DUBBO_ASYNC = "FIELD_DUBBO_ASYNC";
+    public static final String FIELD_DUBBO_INTERFACE = "FIELD_DUBBO_INTERFACE";
+    public static final String FIELD_DUBBO_METHOD = "FIELD_DUBBO_METHOD";
+    public static final String FIELD_DUBBO_METHOD_ARGS = "FIELD_DUBBO_METHOD_ARGS";
+    public static final String FIELD_DUBBO_METHOD_ARGS_SIZE = "FIELD_DUBBO_METHOD_ARGS_SIZE";
     public static final String FIELD_DUBBO_ATTACHMENT_ARGS = "FIELD_DUBBO_ATTACHMENT_ARGS";
     public static final String FIELD_DUBBO_ATTACHMENT_ARGS_SIZE = "FIELD_DUBBO_ATTACHMENT_ARGS_SIZE";
-	public static final String DEFAULT_TIMEOUT = "1000";
-	public static final String DEFAULT_VERSION = "1.0";
-	public static final String DEFAULT_RETRIES = "0";
-	public static final String DEFAULT_CLUSTER = "failfast";
-	public static final String DEFAULT_CONNECTIONS = "100";
+    public static final String DEFAULT_TIMEOUT = "1000";
+    public static final String DEFAULT_VERSION = "1.0";
+    public static final String DEFAULT_RETRIES = "0";
+    public static final String DEFAULT_CLUSTER = "failfast";
+    public static final String DEFAULT_CONNECTIONS = "100";
 
-	//冗余配置元件中的address、protocols、group,用于在sample gui获取配置元件中的默认值
+    //冗余配置元件中的address、protocols、group,用于在sample gui获取配置元件中的默认值
     public static String DEFAULT_PANEL_ADDRESS = "";
     public static String DEFAULT_PANEL_PROTOCOLS = "";
     public static String DEFAULT_PANEL_GROUP = "";
@@ -115,6 +115,8 @@ public class Constants {
 
     /**
      * get Registry Protocol
+     *
+     * @param element element
      * @return the protocol
      */
     public static final String getRegistryProtocol(TestElement element) {
@@ -123,6 +125,8 @@ public class Constants {
 
     /**
      * set Registry Protocol
+     *
+     * @param element          element
      * @param registryProtocol the protocol to set
      */
     public static final void setRegistryProtocol(String registryProtocol, TestElement element) {
@@ -131,6 +135,8 @@ public class Constants {
 
     /**
      * get Registry Group
+     *
+     * @param element element
      * @return the group
      */
     public static final String getRegistryGroup(TestElement element) {
@@ -139,6 +145,8 @@ public class Constants {
 
     /**
      * set Registry Group
+     *
+     * @param element       element
      * @param registryGroup the group to set
      */
     public static final void setRegistryGroup(String registryGroup, TestElement element) {
@@ -147,6 +155,8 @@ public class Constants {
 
     /**
      * get Registry username
+     *
+     * @param element element
      * @return the username
      */
     public static final String getRegistryUserName(TestElement element) {
@@ -155,6 +165,8 @@ public class Constants {
 
     /**
      * set Registry username
+     *
+     * @param element  element
      * @param username the username to set
      */
     public static final void setRegistryUserName(String username, TestElement element) {
@@ -163,6 +175,8 @@ public class Constants {
 
     /**
      * get Registry password
+     *
+     * @param element element
      * @return the password
      */
     public static final String getRegistryPassword(TestElement element) {
@@ -171,6 +185,8 @@ public class Constants {
 
     /**
      * set Registry password
+     *
+     * @param element  element
      * @param password the password to set
      */
     public static final void setRegistryPassword(String password, TestElement element) {
@@ -179,6 +195,8 @@ public class Constants {
 
     /**
      * get Registry timeout
+     *
+     * @param element element
      * @return the timeout
      */
     public static final String getRegistryTimeout(TestElement element) {
@@ -187,6 +205,8 @@ public class Constants {
 
     /**
      * set Registry timeout
+     *
+     * @param element element
      * @param timeout the group to set
      */
     public static final void setRegistryTimeout(String timeout, TestElement element) {
@@ -195,6 +215,8 @@ public class Constants {
 
     /**
      * get ConfigCenter protocol
+     *
+     * @param element element
      * @return the protocol
      */
     public static final String getConfigCenterProtocol(TestElement element) {
@@ -203,6 +225,8 @@ public class Constants {
 
     /**
      * set ConfigCenter protocol
+     *
+     * @param element  element
      * @param protocol the protocol to set
      */
     public static final void setConfigCenterProtocol(String protocol, TestElement element) {
@@ -211,6 +235,8 @@ public class Constants {
 
     /**
      * get ConfigCenter group
+     *
+     * @param element element
      * @return the group
      */
     public static final String getConfigCenterGroup(TestElement element) {
@@ -219,7 +245,9 @@ public class Constants {
 
     /**
      * set ConfigCenter group
-     * @param group the group to set
+     *
+     * @param element element
+     * @param group   the group to set
      */
     public static final void setConfigCenterGroup(String group, TestElement element) {
         element.setProperty(new StringProperty(FIELD_DUBBO_CONFIG_CENTER_GROUP, StringUtils.trimAllWhitespace(group)));
@@ -227,6 +255,8 @@ public class Constants {
 
     /**
      * get ConfigCenter namespace
+     *
+     * @param element element
      * @return the namespace
      */
     public static final String getConfigCenterNamespace(TestElement element) {
@@ -235,6 +265,8 @@ public class Constants {
 
     /**
      * set ConfigCenter namespace
+     *
+     * @param element   element
      * @param namespace the namespace to set
      */
     public static final void setConfigCenterNamespace(String namespace, TestElement element) {
@@ -243,6 +275,8 @@ public class Constants {
 
     /**
      * get ConfigCenter username
+     *
+     * @param element element
      * @return the username
      */
     public static final String getConfigCenterUserName(TestElement element) {
@@ -251,6 +285,8 @@ public class Constants {
 
     /**
      * set ConfigCenter username
+     *
+     * @param element  element
      * @param username the username to set
      */
     public static final void setConfigCenterUserName(String username, TestElement element) {
@@ -259,6 +295,8 @@ public class Constants {
 
     /**
      * get ConfigCenter password
+     *
+     * @param element element
      * @return the password
      */
     public static final String getConfigCenterPassword(TestElement element) {
@@ -267,6 +305,8 @@ public class Constants {
 
     /**
      * set ConfigCenter password
+     *
+     * @param element  element
      * @param password the password to set
      */
     public static final void setConfigCenterPassword(String password, TestElement element) {
@@ -275,6 +315,8 @@ public class Constants {
 
     /**
      * get ConfigCenter address
+     *
+     * @param element element
      * @return the address
      */
     public static final String getConfigCenterAddress(TestElement element) {
@@ -283,6 +325,8 @@ public class Constants {
 
     /**
      * set ConfigCenter namespace
+     *
+     * @param element element
      * @param address the address to set
      */
     public static final void setConfigCenterAddress(String address, TestElement element) {
@@ -291,6 +335,8 @@ public class Constants {
 
     /**
      * get ConfigCenter timeout
+     *
+     * @param element element
      * @return the timeout
      */
     public static final String getConfigCenterTimeout(TestElement element) {
@@ -299,6 +345,8 @@ public class Constants {
 
     /**
      * set ConfigCenter namespace
+     *
+     * @param element element
      * @param timeout the timeout to set
      */
     public static final void setConfigCenterTimeout(String timeout, TestElement element) {
@@ -307,6 +355,8 @@ public class Constants {
 
     /**
      * get RPC protocol
+     *
+     * @param element element
      * @return the RPC protocol
      */
     public static final String getRpcProtocol(TestElement element) {
@@ -315,6 +365,8 @@ public class Constants {
 
     /**
      * set RPC protocol
+     *
+     * @param element     element
      * @param rpcProtocol the protocol to set
      */
     public static final void setRpcProtocol(String rpcProtocol, TestElement element) {
@@ -323,6 +375,8 @@ public class Constants {
 
     /**
      * get address
+     *
+     * @param element element
      * @return the address
      */
     public static final String getAddress(TestElement element) {
@@ -331,6 +385,8 @@ public class Constants {
 
     /**
      * set address
+     *
+     * @param element element
      * @param address the address to set
      */
     public static final void setAddress(String address, TestElement element) {
@@ -339,6 +395,8 @@ public class Constants {
 
     /**
      * get timeout
+     *
+     * @param element element
      * @return the timeout
      */
     public static final String getTimeout(TestElement element) {
@@ -347,6 +405,8 @@ public class Constants {
 
     /**
      * set timeout
+     *
+     * @param element element
      * @param timeout the timeout to set
      */
     public static final void setTimeout(String timeout, TestElement element) {
@@ -355,6 +415,8 @@ public class Constants {
 
     /**
      * get version
+     *
+     * @param element element
      * @return the version
      */
     public static final String getVersion(TestElement element) {
@@ -363,6 +425,8 @@ public class Constants {
 
     /**
      * set version
+     *
+     * @param element element
      * @param version the version to set
      */
     public static final void setVersion(String version, TestElement element) {
@@ -371,6 +435,8 @@ public class Constants {
 
     /**
      * get retries
+     *
+     * @param element element
      * @return the retries
      */
     public static final String getRetries(TestElement element) {
@@ -379,6 +445,8 @@ public class Constants {
 
     /**
      * set retries
+     *
+     * @param element element
      * @param retries the retries to set
      */
     public static final void setRetries(String retries, TestElement element) {
@@ -387,6 +455,8 @@ public class Constants {
 
     /**
      * get cluster
+     *
+     * @param element element
      * @return the cluster
      */
     public static final String getCluster(TestElement element) {
@@ -395,6 +465,8 @@ public class Constants {
 
     /**
      * set cluster
+     *
+     * @param element element
      * @param cluster the cluster to set
      */
     public static final void setCluster(String cluster, TestElement element) {
@@ -403,6 +475,8 @@ public class Constants {
 
     /**
      * get group
+     *
+     * @param element element
      * @return the group
      */
     public static final String getGroup(TestElement element) {
@@ -411,7 +485,9 @@ public class Constants {
 
     /**
      * set group
-     * @param group the group to set
+     *
+     * @param element element
+     * @param group   the group to set
      */
     public static final void setGroup(String group, TestElement element) {
         element.setProperty(new StringProperty(FIELD_DUBBO_GROUP, StringUtils.trimAllWhitespace(group)));
@@ -419,6 +495,8 @@ public class Constants {
 
     /**
      * get connections
+     *
+     * @param element element
      * @return the group
      */
     public static final String getConnections(TestElement element) {
@@ -427,6 +505,8 @@ public class Constants {
 
     /**
      * set connections
+     *
+     * @param element     element
      * @param connections the connections to set
      */
     public static final void setConnections(String connections, TestElement element) {
@@ -435,6 +515,8 @@ public class Constants {
 
     /**
      * get loadbalance
+     *
+     * @param element element
      * @return the loadbalance
      */
     public static final String getLoadbalance(TestElement element) {
@@ -443,6 +525,8 @@ public class Constants {
 
     /**
      * set loadbalance
+     *
+     * @param element     element
      * @param loadbalance the loadbalance to set
      */
     public static final void setLoadbalance(String loadbalance, TestElement element) {
@@ -451,6 +535,8 @@ public class Constants {
 
     /**
      * get async
+     *
+     * @param element element
      * @return the async
      */
     public static final String getAsync(TestElement element) {
@@ -459,7 +545,9 @@ public class Constants {
 
     /**
      * set async
-     * @param async the async to set
+     *
+     * @param element element
+     * @param async   the async to set
      */
     public static final void setAsync(String async, TestElement element) {
         element.setProperty(new StringProperty(FIELD_DUBBO_ASYNC, StringUtils.trimAllWhitespace(async)));
@@ -467,6 +555,8 @@ public class Constants {
 
     /**
      * get interfaceName
+     *
+     * @param element element
      * @return the interfaceName
      */
     public static final String getInterface(TestElement element) {
@@ -475,6 +565,8 @@ public class Constants {
 
     /**
      * set interfaceName
+     *
+     * @param element       element
      * @param interfaceName the interfaceName to set
      */
     public static final void setInterfaceName(String interfaceName, TestElement element) {
@@ -483,6 +575,8 @@ public class Constants {
 
     /**
      * get method
+     *
+     * @param element element
      * @return the method
      */
     public static final String getMethod(TestElement element) {
@@ -491,7 +585,9 @@ public class Constants {
 
     /**
      * set method
-     * @param method the method to set
+     *
+     * @param element element
+     * @param method  the method to set
      */
     public static final void setMethod(String method, TestElement element) {
         element.setProperty(new StringProperty(FIELD_DUBBO_METHOD, StringUtils.trimAllWhitespace(method)));
@@ -499,6 +595,8 @@ public class Constants {
 
     /**
      * get methodArgs
+     *
+     * @param element element
      * @return the methodArgs
      */
     public static final List<MethodArgument> getMethodArgs(TestElement element) {
@@ -515,6 +613,8 @@ public class Constants {
 
     /**
      * set methodArgs
+     *
+     * @param element    element
      * @param methodArgs the methodArgs to set
      */
     public static final void setMethodArgs(List<MethodArgument> methodArgs, TestElement element) {
@@ -522,14 +622,16 @@ public class Constants {
         element.setProperty(new IntegerProperty(FIELD_DUBBO_METHOD_ARGS_SIZE, size));
         if (size > 0) {
             for (int i = 1; i <= methodArgs.size(); i++) {
-                element.setProperty(new StringProperty(FIELD_DUBBO_METHOD_ARGS + "_PARAM_TYPE" + i, methodArgs.get(i-1).getParamType()));
-                element.setProperty(new StringProperty(FIELD_DUBBO_METHOD_ARGS + "_PARAM_VALUE" + i, methodArgs.get(i-1).getParamValue()));
+                element.setProperty(new StringProperty(FIELD_DUBBO_METHOD_ARGS + "_PARAM_TYPE" + i, methodArgs.get(i - 1).getParamType()));
+                element.setProperty(new StringProperty(FIELD_DUBBO_METHOD_ARGS + "_PARAM_VALUE" + i, methodArgs.get(i - 1).getParamValue()));
             }
         }
     }
 
     /**
      * get attachmentArgs
+     *
+     * @param element element
      * @return the attachmentArgs
      */
     public static final List<MethodArgument> getAttachmentArgs(TestElement element) {
@@ -546,6 +648,8 @@ public class Constants {
 
     /**
      * set attachmentArgs
+     *
+     * @param element    element
      * @param methodArgs the attachmentArgs to set
      */
     public static final void setAttachmentArgs(List<MethodArgument> methodArgs, TestElement element) {
@@ -553,8 +657,8 @@ public class Constants {
         element.setProperty(new IntegerProperty(FIELD_DUBBO_ATTACHMENT_ARGS_SIZE, size));
         if (size > 0) {
             for (int i = 1; i <= methodArgs.size(); i++) {
-                element.setProperty(new StringProperty(FIELD_DUBBO_ATTACHMENT_ARGS + "_KEY" + i, methodArgs.get(i-1).getParamType()));
-                element.setProperty(new StringProperty(FIELD_DUBBO_ATTACHMENT_ARGS + "_VALUE" + i, methodArgs.get(i-1).getParamValue()));
+                element.setProperty(new StringProperty(FIELD_DUBBO_ATTACHMENT_ARGS + "_KEY" + i, methodArgs.get(i - 1).getParamType()));
+                element.setProperty(new StringProperty(FIELD_DUBBO_ATTACHMENT_ARGS + "_VALUE" + i, methodArgs.get(i - 1).getParamValue()));
             }
         }
     }

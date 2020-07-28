@@ -27,8 +27,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * DubboSampleGui </br>
- * invoke sequence**clearGui()->createTestElement()->modifyTestElement()->configure()**
+ * DubboSampleGui
  */
 public class DubboSampleGui extends AbstractSamplerGui {
     
