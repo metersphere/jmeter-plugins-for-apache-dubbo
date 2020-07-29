@@ -60,7 +60,7 @@ public class ProviderService implements Serializable {
     }
 
     public List<String> getProviders(String protocol, String address, String group) throws RuntimeException {
-        if (protocol.equals("zookeeper") || protocol.equals("nacos") || protocol.equals("redis")){
+        if (protocol.equals("zookeeper") || protocol.equals("nacos") || protocol.equals("redis")) {
             return executeRegistry(protocol, address, group);
 //        } else if (protocol.equals("none")) {
 //            return executeTelnet();
@@ -119,6 +119,8 @@ public class ProviderService implements Serializable {
             List<String> ret = new ArrayList<String>();
             providerUrls = registryServerSync.getRegistryCache().get(com.alibaba.dubbo.common.Constants.PROVIDERS_CATEGORY);
             if (providerUrls != null) ret.addAll(providerUrls.keySet());
+            // unsubscribe
+            registryService.unsubscribe(RegistryServerSync.SUBSCRIBE, registryServerSync);
             return ret;
         } catch (Exception e) {
             log.error("get provider list is error!", e);
