@@ -24,6 +24,7 @@ import org.apache.dubbo.config.ReferenceConfigBase;
 import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.config.utils.ReferenceConfigCache;
 import org.apache.dubbo.registry.RegistryService;
+import org.apache.dubbo.rpc.model.ApplicationModel;
 import org.apache.jorphan.logging.LoggingManager;
 import org.apache.log.Logger;
 
@@ -112,6 +113,7 @@ public class ProviderService implements Serializable {
             });
             RegistryService registryService = (RegistryService) cache.get(reference);
             if (registryService == null) {
+                ApplicationModel.reset();
                 throw new RuntimeException("Can't get the interface list, please check if the address is wrong!");
             }
             RegistryServerSync registryServerSync = RegistryServerSync.get(address + "_" + group);
@@ -123,6 +125,7 @@ public class ProviderService implements Serializable {
             registryService.unsubscribe(RegistryServerSync.SUBSCRIBE, registryServerSync);
             return ret;
         } catch (Exception e) {
+            ApplicationModel.reset();
             log.error("get provider list is error!", e);
             throw new RuntimeException("Can't get the interface list, please check if the address is wrong!", e);
         }
