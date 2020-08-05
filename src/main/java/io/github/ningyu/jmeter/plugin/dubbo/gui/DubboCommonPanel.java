@@ -303,7 +303,7 @@ public class DubboCommonPanel {
 
     public JPanel drawInterfaceSettingsPanel() {
         //Interface Settings
-        JPanel interfaceSettings = new VerticalPanel();
+        final JPanel interfaceSettings = new VerticalPanel();
         interfaceSettings.setBorder(BorderFactory.createTitledBorder("Interface"));
         //Selection Interface
         JPanel sh = new HorizontalPanel();

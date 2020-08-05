@@ -18,10 +18,15 @@
 package io.github.ningyu.jmeter.plugin.dubbo.sample;
 
 import io.github.ningyu.jmeter.plugin.util.Constants;
+import org.apache.curator.CuratorZookeeperClient;
+import org.apache.curator.retry.RetryNTimes;
 import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.constants.RegistryConstants;
+import org.apache.dubbo.config.AbstractConfig;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.ReferenceConfigBase;
 import org.apache.dubbo.config.RegistryConfig;
+import org.apache.dubbo.config.utils.ConfigValidationUtils;
 import org.apache.dubbo.config.utils.ReferenceConfigCache;
 import org.apache.dubbo.registry.RegistryService;
 import org.apache.dubbo.rpc.model.ApplicationModel;
@@ -45,7 +50,7 @@ public class ProviderService implements Serializable {
     private static final long serialVersionUID = -750353929981409079L;
     ConcurrentMap<String, Map<String, URL>> providerUrls = null;
 
-    private static ConcurrentMap<String, ProviderService> cache = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, ProviderService> cache = new ConcurrentHashMap<>();
 
     public static ProviderService get(String key) {
         ProviderService service = cache.get(key);
@@ -74,11 +79,29 @@ public class ProviderService implements Serializable {
         throw new RuntimeException();
     }
 
+    private void checkZookeeper(ReferenceConfig<?> reference) throws Exception {
+        if (!Constants.REGISTRY_ZOOKEEPER.equals(reference.getRegistry().getProtocol())) return;
+
+        log.info("check zookeeper connect");
+        List<URL> urls = ConfigValidationUtils.loadRegistries(reference, false);
+        if (urls.size() > 0) {
+            URL url = urls.get(0);
+            CuratorZookeeperClient client = new CuratorZookeeperClient(url.getBackupAddress(), 60000, 5000,
+                    null, new RetryNTimes(0, 1000));
+            client.start();
+            if (!client.blockUntilConnectedOrTimedOut()) {
+                client.close();
+                log.error("zookeeper not connected");
+                throw new IllegalStateException("zookeeper not connected");
+            }
+        }
+    }
+
     private List<String> executeRegistry(String protocol, String address, String group) throws RuntimeException {
-        ReferenceConfig reference = new ReferenceConfig();
+        ReferenceConfig<?> reference = new ReferenceConfig<>();
         // set application
         reference.setApplication(DubboSample.application);
-        RegistryConfig registry = null;
+        RegistryConfig registry;
         switch (protocol) {
             case Constants.REGISTRY_ZOOKEEPER:
                 registry = new RegistryConfig();
@@ -104,13 +127,10 @@ public class ProviderService implements Serializable {
         }
         reference.setInterface("org.apache.dubbo.registry.RegistryService");
         try {
-            ReferenceConfigCache cache = ReferenceConfigCache.getCache(address + "_" + group, new ReferenceConfigCache.KeyGenerator() {
+            checkZookeeper(reference);
 
-                @Override
-                public String generateKey(ReferenceConfigBase<?> referenceConfig) {
-                    return referenceConfig.toString();
-                }
-            });
+            ReferenceConfigCache cache = ReferenceConfigCache.getCache(address + "_" + group, AbstractConfig::toString);
+
             RegistryService registryService = (RegistryService) cache.get(reference);
             if (registryService == null) {
                 ApplicationModel.reset();
@@ -118,8 +138,8 @@ public class ProviderService implements Serializable {
             }
             RegistryServerSync registryServerSync = RegistryServerSync.get(address + "_" + group);
             registryService.subscribe(RegistryServerSync.SUBSCRIBE, registryServerSync);
-            List<String> ret = new ArrayList<String>();
-            providerUrls = registryServerSync.getRegistryCache().get(com.alibaba.dubbo.common.Constants.PROVIDERS_CATEGORY);
+            List<String> ret = new ArrayList<>();
+            providerUrls = registryServerSync.getRegistryCache().get(RegistryConstants.PROVIDERS_CATEGORY);
             if (providerUrls != null) ret.addAll(providerUrls.keySet());
             // unsubscribe
             registryService.unsubscribe(RegistryServerSync.SUBSCRIBE, registryServerSync);
