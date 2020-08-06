@@ -22,7 +22,7 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>2.7.9</revision>
+        <revision>2.7.10</revision>
         <java.version>1.8</java.version>
         <java.source.version>1.8</java.source.version>
         <java.target.version>1.8</java.target.version>

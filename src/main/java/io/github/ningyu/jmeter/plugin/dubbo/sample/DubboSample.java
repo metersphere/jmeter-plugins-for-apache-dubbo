@@ -24,7 +24,6 @@ import org.apache.dubbo.common.utils.StringUtils;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ConfigCenterConfig;
 import org.apache.dubbo.config.ReferenceConfig;
-import org.apache.dubbo.config.ReferenceConfigBase;
 import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.config.utils.ReferenceConfigCache;
 import org.apache.dubbo.rpc.RpcContext;
@@ -54,10 +53,7 @@ public class DubboSample extends AbstractSampler implements Interruptible {
 
     public static ApplicationConfig application = new ApplicationConfig("DubboSample");
 
-
-
-    @SuppressWarnings("deprecation")
-	@Override
+    @Override
     public SampleResult sample(Entry entry) {
         SampleResult res = new SampleResult();
         res.setSampleLabel(getName());
@@ -101,13 +97,13 @@ public class DubboSample extends AbstractSampler implements Interruptible {
         ReferenceConfig reference = new ReferenceConfig();
         // set application
         reference.setApplication(application);
-        /** registry center */
+        /* registry center */
         String address = Constants.getAddress(this);
         if (StringUtils.isBlank(address)) {
             setResponseError(res, ErrorCode.MISS_ADDRESS);
             return ErrorCode.MISS_ADDRESS.getMessage();
         }
-        RegistryConfig registry = null;
+        RegistryConfig registry;
         String rpcProtocol = Constants.getRpcProtocol(this).replaceAll("://", "");
         String protocol = Constants.getRegistryProtocol(this);
         String registryGroup = Constants.getRegistryGroup(this);
@@ -122,7 +118,7 @@ public class DubboSample extends AbstractSampler implements Interruptible {
         }
         if (StringUtils.isBlank(protocol) || Constants.REGISTRY_NONE.equals(protocol)) {
             //direct connection
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(Constants.getRpcProtocol(this))
                     .append(Constants.getAddress(this))
                     .append("/").append(Constants.getInterface(this));
@@ -144,7 +140,7 @@ public class DubboSample extends AbstractSampler implements Interruptible {
             reference.setProtocol(rpcProtocol);
             reference.setRegistry(registry);
         }
-        /** config center */
+        /* config center */
         try {
             String configCenterProtocol = Constants.getConfigCenterProtocol(this);
             if (!StringUtils.isBlank(configCenterProtocol)) {
@@ -175,7 +171,7 @@ public class DubboSample extends AbstractSampler implements Interruptible {
                 reference.setConfigCenter(configCenter);
             }
         } catch (IllegalStateException e) {
-            /** Duplicate Config */
+            /* Duplicate Config */
             setResponseError(res, ErrorCode.DUPLICATE_CONFIGCENTERCONFIG);
             return ErrorCode.DUPLICATE_CONFIGCENTERCONFIG.getMessage();
         }
@@ -257,7 +253,7 @@ public class DubboSample extends AbstractSampler implements Interruptible {
             // set async
             String async = Constants.getAsync(this);
             if (!StringUtils.isBlank(async)) {
-                reference.setAsync(Constants.ASYNC.equals(async) ? true : false);
+                reference.setAsync(Constants.ASYNC.equals(async));
             }
 
             // set generic
@@ -270,13 +266,7 @@ public class DubboSample extends AbstractSampler implements Interruptible {
             }
 
             // The registry's address is to generate the ReferenceConfigCache key
-            ReferenceConfigCache cache = ReferenceConfigCache.getCache(Constants.getAddress(this), new ReferenceConfigCache.KeyGenerator() {
-
-                @Override
-                public String generateKey(ReferenceConfigBase<?> referenceConfig) {
-                    return referenceConfig.toString();
-                }
-			});
+            ReferenceConfigCache cache = ReferenceConfigCache.getCache(Constants.getAddress(this));
             GenericService genericService = (GenericService) cache.get(reference);
             if (genericService == null) {
                 setResponseError(res, ErrorCode.GENERIC_SERVICE_IS_NULL);
@@ -285,21 +275,21 @@ public class DubboSample extends AbstractSampler implements Interruptible {
             String[] parameterTypes = null;
             Object[] parameterValues = null;
             List<MethodArgument> args = Constants.getMethodArgs(this);
-            List<String> paramterTypeList =  new ArrayList<String>();;
-            List<Object> parameterValuesList = new ArrayList<Object>();;
+            List<String> paramterTypeList = new ArrayList<>();;
+            List<Object> parameterValuesList = new ArrayList<>();;
             for(MethodArgument arg : args) {
             	ClassUtils.parseParameter(paramterTypeList, parameterValuesList, arg);
             }
-            parameterTypes = paramterTypeList.toArray(new String[paramterTypeList.size()]);
-            parameterValues = parameterValuesList.toArray(new Object[parameterValuesList.size()]);
+            parameterTypes = paramterTypeList.toArray(new String[0]);
+            parameterValues = parameterValuesList.toArray(new Object[0]);
 
             List<MethodArgument> attachmentArgs = Constants.getAttachmentArgs(this);
-            if (attachmentArgs != null && !attachmentArgs.isEmpty()) {
+            if (!attachmentArgs.isEmpty()) {
                 RpcContext.getContext().setAttachments(attachmentArgs.stream().collect(Collectors.toMap(MethodArgument::getParamType, MethodArgument::getParamValue)));
             }
 
             res.sampleStart();
-            Object result = null;
+            Object result;
 			try {
 				result = genericService.$invoke(methodName, parameterTypes, parameterValues);
                 res.setResponseOK();
