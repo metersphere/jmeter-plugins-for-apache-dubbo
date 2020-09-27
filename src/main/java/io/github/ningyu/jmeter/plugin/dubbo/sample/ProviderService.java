@@ -17,16 +17,13 @@
 
 package io.github.ningyu.jmeter.plugin.dubbo.sample;
 
+import io.github.ningyu.jmeter.plugin.util.CheckUtils;
 import io.github.ningyu.jmeter.plugin.util.Constants;
-import org.apache.curator.CuratorZookeeperClient;
-import org.apache.curator.retry.RetryNTimes;
 import org.apache.dubbo.common.URL;
 import org.apache.dubbo.common.constants.RegistryConstants;
 import org.apache.dubbo.config.AbstractConfig;
 import org.apache.dubbo.config.ReferenceConfig;
-import org.apache.dubbo.config.ReferenceConfigBase;
 import org.apache.dubbo.config.RegistryConfig;
-import org.apache.dubbo.config.utils.ConfigValidationUtils;
 import org.apache.dubbo.config.utils.ReferenceConfigCache;
 import org.apache.dubbo.registry.RegistryService;
 import org.apache.dubbo.rpc.model.ApplicationModel;
@@ -68,32 +65,8 @@ public class ProviderService implements Serializable {
     public List<String> getProviders(String protocol, String address, String group) throws RuntimeException {
         if (protocol.equals("zookeeper") || protocol.equals("nacos") || protocol.equals("redis")) {
             return executeRegistry(protocol, address, group);
-//        } else if (protocol.equals("none")) {
-//            return executeTelnet();
         } else {
             throw new RuntimeException("Registry Protocol please use zookeeper or nacos or redis!");
-        }
-    }
-
-    private List<String> executeTelnet() throws RuntimeException {
-        throw new RuntimeException();
-    }
-
-    private void checkZookeeper(ReferenceConfig<?> reference) throws Exception {
-        if (!Constants.REGISTRY_ZOOKEEPER.equals(reference.getRegistry().getProtocol())) return;
-
-        log.info("check zookeeper connect");
-        List<URL> urls = ConfigValidationUtils.loadRegistries(reference, false);
-        if (urls.size() > 0) {
-            URL url = urls.get(0);
-            CuratorZookeeperClient client = new CuratorZookeeperClient(url.getBackupAddress(), 60000, 5000,
-                    null, new RetryNTimes(0, 1000));
-            client.start();
-            if (!client.blockUntilConnectedOrTimedOut()) {
-                client.close();
-                log.error("zookeeper not connected");
-                throw new IllegalStateException("zookeeper not connected");
-            }
         }
     }
 
@@ -127,7 +100,7 @@ public class ProviderService implements Serializable {
         }
         reference.setInterface("org.apache.dubbo.registry.RegistryService");
         try {
-            checkZookeeper(reference);
+            CheckUtils.checkZookeeper(reference);
 
             ReferenceConfigCache cache = ReferenceConfigCache.getCache(address + "_" + group, AbstractConfig::toString);
 

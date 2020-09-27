@@ -16,10 +16,9 @@
  */
 package io.github.ningyu.jmeter.plugin.dubbo.sample;
 
-import io.github.ningyu.jmeter.plugin.util.ClassUtils;
-import io.github.ningyu.jmeter.plugin.util.Constants;
-import io.github.ningyu.jmeter.plugin.util.ErrorCode;
-import io.github.ningyu.jmeter.plugin.util.JsonUtils;
+import static org.apache.dubbo.common.constants.CommonConstants.GENERIC_SERIALIZATION_DEFAULT;
+
+import io.github.ningyu.jmeter.plugin.util.*;
 import org.apache.dubbo.common.utils.StringUtils;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ConfigCenterConfig;
@@ -70,8 +69,8 @@ public class DubboSample extends AbstractSampler implements Interruptible {
      * Construct request data
      */
     private String getSampleData() {
-        log.info("sample中的实例id"+this.toString()+",element名称"+this.getName());
-    	StringBuilder sb = new StringBuilder();
+        log.info("sample中的实例id" + this.toString() + ",element名称" + this.getName());
+        StringBuilder sb = new StringBuilder();
         sb.append("Registry Protocol: ").append(Constants.getRegistryProtocol(this)).append("\n");
         sb.append("Address: ").append(Constants.getAddress(this)).append("\n");
         sb.append("RPC Protocol: ").append(Constants.getRpcProtocol(this)).append("\n");
@@ -124,7 +123,7 @@ public class DubboSample extends AbstractSampler implements Interruptible {
                     .append("/").append(Constants.getInterface(this));
             log.debug("rpc invoker url : " + sb.toString());
             reference.setUrl(sb.toString());
-        } else if(Constants.REGISTRY_SIMPLE.equals(protocol)){
+        } else if (Constants.REGISTRY_SIMPLE.equals(protocol)) {
             registry = new RegistryConfig();
             registry.setAddress(address);
             reference.setProtocol(rpcProtocol);
@@ -176,15 +175,15 @@ public class DubboSample extends AbstractSampler implements Interruptible {
             return ErrorCode.DUPLICATE_CONFIGCENTERCONFIG.getMessage();
         }
         try {
-		    // set interface
-		    String interfaceName = Constants.getInterface(this);
-		    if (StringUtils.isBlank(interfaceName)) {
+            // set interface
+            String interfaceName = Constants.getInterface(this);
+            if (StringUtils.isBlank(interfaceName)) {
                 setResponseError(res, ErrorCode.MISS_INTERFACE);
                 return ErrorCode.MISS_INTERFACE.getMessage();
             }
             reference.setInterface(interfaceName);
 
-		    // set retries
+            // set retries
             Integer retries = null;
             try {
                 if (!StringUtils.isBlank(Constants.getRetries(this))) {
@@ -257,7 +256,9 @@ public class DubboSample extends AbstractSampler implements Interruptible {
             }
 
             // set generic
-            reference.setGeneric(true);
+            reference.setGeneric(GENERIC_SERIALIZATION_DEFAULT);
+
+            CheckUtils.checkZookeeper(reference);
 
             String methodName = Constants.getMethod(this);
             if (StringUtils.isBlank(methodName)) {
@@ -272,15 +273,15 @@ public class DubboSample extends AbstractSampler implements Interruptible {
                 setResponseError(res, ErrorCode.GENERIC_SERVICE_IS_NULL);
                 return MessageFormat.format(ErrorCode.GENERIC_SERVICE_IS_NULL.getMessage(), interfaceName);
             }
-            String[] parameterTypes = null;
-            Object[] parameterValues = null;
+            String[] parameterTypes;
+            Object[] parameterValues;
             List<MethodArgument> args = Constants.getMethodArgs(this);
-            List<String> paramterTypeList = new ArrayList<>();;
-            List<Object> parameterValuesList = new ArrayList<>();;
-            for(MethodArgument arg : args) {
-            	ClassUtils.parseParameter(paramterTypeList, parameterValuesList, arg);
+            List<String> parameterTypeList = new ArrayList<>();
+            List<Object> parameterValuesList = new ArrayList<>();
+            for (MethodArgument arg : args) {
+                ClassUtils.parseParameter(parameterTypeList, parameterValuesList, arg);
             }
-            parameterTypes = paramterTypeList.toArray(new String[0]);
+            parameterTypes = parameterTypeList.toArray(new String[0]);
             parameterValues = parameterValuesList.toArray(new Object[0]);
 
             List<MethodArgument> attachmentArgs = Constants.getAttachmentArgs(this);
@@ -290,37 +291,32 @@ public class DubboSample extends AbstractSampler implements Interruptible {
 
             res.sampleStart();
             Object result;
-			try {
-				result = genericService.$invoke(methodName, parameterTypes, parameterValues);
+            try {
+                result = genericService.$invoke(methodName, parameterTypes, parameterValues);
                 res.setResponseOK();
-			} catch (Exception e) {
-				log.error("Exception：", e);
+            } catch (Exception e) {
+                log.error("Exception：", e);
                 if (e instanceof RpcException) {
                     RpcException rpcException = (RpcException) e;
                     setResponseError(res, String.valueOf(rpcException.getCode()), rpcException.getMessage());
                 } else {
                     setResponseError(res, ErrorCode.UNKNOWN_EXCEPTION);
                 }
-				result = e;
-			}
+                result = e;
+            }
             res.sampleEnd();
             return result;
         } catch (Exception e) {
             log.error("UnknownException：", e);
             setResponseError(res, ErrorCode.UNKNOWN_EXCEPTION);
             return e;
-        } finally {
-        	//TODO 不能在sample结束时destroy
-//            if (registry != null) {
-//                registry.destroyAll();
-//            }
-//            reference.destroy();
         }
     }
 
     public void setResponseError(SampleResult res, ErrorCode errorCode) {
         setResponseError(res, errorCode.getCode(), errorCode.getMessage());
     }
+
     public void setResponseError(SampleResult res, String code, String message) {
         res.setSuccessful(false);
         res.setResponseCode(code);
