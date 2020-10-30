@@ -102,8 +102,7 @@ public class ProviderService implements Serializable {
         try {
             CheckUtils.checkZookeeper(reference);
 
-            ReferenceConfigCache cache = ReferenceConfigCache.getCache(address + "_" + group, AbstractConfig::toString);
-
+            ReferenceConfigCache cache = ReferenceConfigCache.getCache(address + "_" + group);
             RegistryService registryService = (RegistryService) cache.get(reference);
             if (registryService == null) {
                 ApplicationModel.reset();

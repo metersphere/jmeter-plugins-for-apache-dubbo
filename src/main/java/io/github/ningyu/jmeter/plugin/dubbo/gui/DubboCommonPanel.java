@@ -303,7 +303,7 @@ public class DubboCommonPanel {
 
     public JPanel drawInterfaceSettingsPanel() {
         //Interface Settings
-        final JPanel interfaceSettings = new VerticalPanel();
+        JPanel interfaceSettings = new VerticalPanel();
         interfaceSettings.setBorder(BorderFactory.createTitledBorder("Interface"));
         //Selection Interface
         JPanel sh = new HorizontalPanel();
@@ -500,7 +500,6 @@ public class DubboCommonPanel {
         Constants.setAddress(addressText.getText(), element);
         Constants.setRegistryTimeout(registryTimeoutText.getText(), element);
     }
-
     public void modifyConfigCenter(TestElement element) {
         Constants.setConfigCenterProtocol(configCenterProtocolText.getSelectedItem().toString(), element);
         Constants.setConfigCenterGroup(configCenterGroupText.getText(), element);
@@ -510,11 +509,9 @@ public class DubboCommonPanel {
         Constants.setConfigCenterAddress(configCenterAddressText.getText(), element);
         Constants.setConfigCenterTimeout(configCenterTimeoutText.getText(), element);
     }
-
     public void modifyProtocol(TestElement element) {
         Constants.setRpcProtocol(rpcProtocolText.getSelectedItem().toString(), element);
     }
-
     public void modifyConsumer(TestElement element) {
         Constants.setTimeout(timeoutText.getText(), element);
         Constants.setVersion(versionText.getText(), element);
@@ -525,14 +522,12 @@ public class DubboCommonPanel {
         Constants.setAsync(asyncText.getSelectedItem().toString(), element);
         Constants.setCluster(clusterText.getText(), element);
     }
-
     public void modifyInterface(TestElement element) {
         Constants.setInterfaceName(interfaceText.getText(), element);
         Constants.setMethod(methodText.getText(), element);
         Constants.setMethodArgs(getMethodArgsData(model.getDataVector()), element);
         Constants.setAttachmentArgs(getMethodArgsData(modelAttachment.getDataVector()), element);
     }
-
     public void clearRegistry() {
         registryProtocolText.setSelectedIndex(0);
         registryGroupText.setText("");
@@ -541,7 +536,6 @@ public class DubboCommonPanel {
         addressText.setText("");
         registryTimeoutText.setText("");
     }
-
     public void clearConfigCenter() {
         configCenterProtocolText.setSelectedIndex(0);
         configCenterGroupText.setText("");
@@ -551,11 +545,9 @@ public class DubboCommonPanel {
         configCenterAddressText.setText("");
         configCenterTimeoutText.setText("");
     }
-
     public void clearProtocol() {
         rpcProtocolText.setSelectedIndex(0);
     }
-
     public void clearConsumer() {
         timeoutText.setText(Constants.DEFAULT_TIMEOUT);
         versionText.setText(Constants.DEFAULT_VERSION);
@@ -566,7 +558,6 @@ public class DubboCommonPanel {
         loadbalanceText.setSelectedIndex(0);
         asyncText.setSelectedIndex(0);
     }
-
     public void clearInterface() {
         interfaceText.setText("");
         methodText.setText("");
