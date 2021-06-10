@@ -20,7 +20,7 @@ public class CheckUtils {
         List<URL> urls = ConfigValidationUtils.loadRegistries(reference, false);
         if (urls.size() > 0) {
             URL url = urls.get(0);
-            try (CuratorZookeeperClient client = new CuratorZookeeperClient(url.getBackupAddress(), 60000, 5000,
+            try (CuratorZookeeperClient client = new CuratorZookeeperClient(url.getBackupAddress(), 60000, 60000,
                     null, new RetryNTimes(0, 1000));) {
                 client.start();
                 if (!client.blockUntilConnectedOrTimedOut()) {

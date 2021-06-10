@@ -81,6 +81,7 @@ public class ProviderService implements Serializable {
                 registry.setProtocol(Constants.REGISTRY_ZOOKEEPER);
                 registry.setGroup(group);
                 registry.setAddress(address);
+                registry.setTimeout(60000);
                 reference.setRegistry(registry);
                 break;
             case Constants.REGISTRY_NACOS:
@@ -88,6 +89,7 @@ public class ProviderService implements Serializable {
                 registry.setProtocol(Constants.REGISTRY_NACOS);
                 registry.setGroup(group);
                 registry.setAddress(address);
+                registry.setTimeout(60000);
                 reference.setRegistry(registry);
                 break;
             case Constants.REGISTRY_REDIS:
@@ -95,6 +97,7 @@ public class ProviderService implements Serializable {
                 registry.setProtocol(Constants.REGISTRY_REDIS);
                 registry.setGroup(group);
                 registry.setAddress(address);
+                registry.setTimeout(60000);
                 reference.setRegistry(registry);
                 break;
         }
